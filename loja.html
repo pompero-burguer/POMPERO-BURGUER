@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pompero Burguer: Loja</title>
+    <meta
+      name="description"
+      content="Sistema interno da Pompero Burguer com frente de caixa, pedidos online, CRM, estoque, pagamentos, NFC-e e WhatsApp."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="locked">
+    <section id="login-screen" class="login-screen" aria-label="Entrada do sistema da loja">
+      <form id="login-form" class="login-card">
+        <img src="assets/pompero-logo.jpg" alt="Pompero Burguer" />
+        <div>
+          <p class="eyebrow">Acesso interno</p>
+          <h1>Entrar na loja</h1>
+        </div>
+        <label class="field">
+          Usuário
+          <input id="login-user" type="text" autocomplete="username" placeholder="Seu usuário" />
+        </label>
+        <label class="field">
+          Senha
+          <input id="login-password" type="password" autocomplete="current-password" placeholder="Sua senha" />
+        </label>
+        <button class="primary-button" type="submit">Entrar</button>
+        <p id="login-error" class="login-error" hidden>Usuário ou senha inválidos.</p>
+        <small>Acesso restrito para equipe autorizada.</small>
+      </form>
+    </section>
+
+    <aside class="sidebar" aria-label="Módulos internos da loja">
+      <a class="brand" href="#caixa" data-open-tab="caixa">
+        <img src="assets/pompero-logo.jpg" alt="Pompero Burguer" />
+        <span>Pompero Loja</span>
+      </a>
+      <nav class="tabs">
+        <button class="tab-button active" type="button" data-tab="caixa">Frente de caixa</button>
+        <button class="tab-button" type="button" data-tab="cozinha">Cozinha</button>
+        <button class="tab-button" type="button" data-tab="cardapio">Venda balcão</button>
+        <button class="tab-button admin-only" type="button" data-tab="produtos">Produtos</button>
+        <button class="tab-button" type="button" data-tab="crm">CRM</button>
+        <button class="tab-button admin-only" type="button" data-tab="estoque">Estoque</button>
+        <button class="tab-button admin-only" type="button" data-tab="pagamentos">Pagamentos</button>
+        <button class="tab-button admin-only" type="button" data-tab="mercadopago">Mercado Pago</button>
+        <button class="tab-button admin-only" type="button" data-tab="nfce">NFC-e</button>
+        <button class="tab-button" type="button" data-tab="whatsapp">WhatsApp</button>
+        <button class="tab-button admin-only" type="button" data-tab="equipe">Equipe</button>
+      </nav>
+    </aside>
+
+    <main class="app-shell">
+      <header class="app-header">
+        <div>
+          <p class="eyebrow">Sistema interno</p>
+          <h1>Loja Pompero</h1>
+          <small id="session-user" class="session-user"></small>
+        </div>
+        <div class="status-strip" aria-label="Resumo da loja">
+          <span><strong id="today-sales">0</strong> vendas</span>
+          <span><strong id="pending-count">0</strong> online</span>
+          <span><strong id="payment-count">0</strong> aguardando pagamento</span>
+          <span><strong id="today-total">R$ 0,00</strong> faturado</span>
+          <span><strong id="stock-alerts">0</strong> alertas</span>
+          <button class="small-button" id="logout-button" type="button">Sair</button>
+        </div>
+      </header>
+
+      <section id="caixa" class="tab-panel active">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">Frente de caixa</p>
+            <h2>Fluxo de pedidos</h2>
+          </div>
+          <button class="ghost-button" type="button" id="refresh-store">Atualizar pedidos</button>
+        </div>
+        <div class="notice">Acompanhe delivery, retirada e salão por etapas: pedido aceito, em preparação, pronto e finalizado.</div>
+        <div id="process-board" class="process-board"></div>
+        <div id="payment-watch-title" class="section-title secondary-title" hidden>
+          <div>
+            <p class="eyebrow">Novos pedidos online</p>
+            <h2>Aguardando aceite</h2>
+          </div>
+        </div>
+        <div id="pending-empty" class="empty-state">Nenhum pedido online aguardando aceite.</div>
+        <div id="pending-orders" class="data-table"></div>
+        <div class="section-title secondary-title">
+          <div>
+            <p class="eyebrow">Pagamentos em aberto</p>
+            <h2>Aguardando confirmação</h2>
+          </div>
+        </div>
+        <div id="payment-watch-empty" class="empty-state" hidden>Nenhum pedido aguardando pagamento.</div>
+        <div id="payment-watch" class="data-table compact-table" hidden></div>
+      </section>
+
+      <section id="cozinha" class="tab-panel">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">Display de cozinha</p>
+            <h2>Produção em tempo real</h2>
+          </div>
+          <button class="ghost-button" type="button" id="refresh-kitchen">Atualizar cozinha</button>
+        </div>
+        <div class="notice">
+          Pedidos aceitos aparecem aqui para a cozinha avançar o preparo sem mexer no caixa.
+        </div>
+        <div id="kitchen-empty" class="empty-state">Nenhum pedido em preparo.</div>
+        <div id="kitchen-board" class="kitchen-board"></div>
+      </section>
+
+      <section id="cardapio" class="tab-panel">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">Venda balcão</p>
+            <h2>Adicionar no caixa</h2>
+          </div>
+          <button class="ghost-button" type="button" id="print-ticket">Imprimir comanda</button>
+        </div>
+        <div class="checkout-layout">
+          <div>
+            <div id="store-menu" class="menu-list"></div>
+          </div>
+          <aside class="panel payment-panel">
+            <h3>Venda balcão</h3>
+            <div id="store-cart-empty" class="empty-state">Adicione itens.</div>
+            <div id="store-cart" class="cart-items"></div>
+            <label class="field">
+              Cliente
+              <input id="store-name" type="text" placeholder="Nome do cliente" />
+            </label>
+            <label class="field">
+              WhatsApp
+              <input id="store-phone" type="tel" placeholder="14999999999" />
+            </label>
+            <label class="field">
+              Forma de pagamento
+              <select id="store-payment">
+                <option>Pix</option>
+                <option>Dinheiro</option>
+                <option>Cartão de crédito</option>
+                <option>Cartão de débito</option>
+              </select>
+            </label>
+            <div class="total-line">
+              <span>Total</span>
+              <strong id="store-total">R$ 0,00</strong>
+            </div>
+            <button class="primary-button" id="store-finish" type="button">Finalizar venda</button>
+            <button class="danger-button" id="store-clear" type="button">Limpar</button>
+          </aside>
+        </div>
+      </section>
+
+      <section id="produtos" class="tab-panel">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">Gestão de produtos</p>
+            <h2>Editor do cardápio</h2>
+          </div>
+        </div>
+        <div class="panel product-pricing-note">
+          <strong>Acesso exclusivo do editor.</strong>
+          <span>Altere nome, descrição, valor e retire itens do cardápio do cliente quando precisar.</span>
+        </div>
+        <div class="product-layout">
+          <form id="product-form" class="panel product-form">
+            <input id="product-id" type="hidden" />
+            <label class="field">
+              Nome do lanche
+              <input id="product-name" type="text" />
+            </label>
+            <label class="field">
+              Categoria
+              <input id="product-flavor" type="text" />
+            </label>
+            <label class="field">
+              Preço
+              <input id="product-price" type="number" min="0" step="0.01" />
+            </label>
+            <label class="field">
+              Imagem
+              <input id="product-photo" type="text" placeholder="assets/lanches/novos/x-salada-v2.png" />
+            </label>
+            <label class="field">
+              Descrição
+              <textarea id="product-description" rows="5"></textarea>
+            </label>
+            <label class="check-field">
+              <input id="product-active" type="checkbox" checked />
+              Aparecer no cardápio do cliente
+            </label>
+            <div class="form-actions">
+              <button class="primary-button" type="submit">Salvar alterações</button>
+              <button class="ghost-button" id="new-product" type="button">Novo produto</button>
+            </div>
+          </form>
+          <div id="product-list" class="data-table product-list"></div>
+        </div>
+      </section>
+
+      <section id="crm" class="tab-panel">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">CRM e pós-venda</p>
+            <h2>Clientes recorrentes</h2>
+          </div>
+          <button class="ghost-button" id="copy-crm-message" type="button">Copiar pós-venda</button>
+        </div>
+        <div id="crm-list" class="data-table"></div>
+      </section>
+
+      <section id="estoque" class="tab-panel">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">Estoque</p>
+            <h2>Ingredientes em kg</h2>
+          </div>
+          <button class="ghost-button" id="reset-stock" type="button">Restaurar inicial</button>
+        </div>
+        <div class="notice">Lance os saldos em kg. A cada venda aceita ou finalizada, o sistema baixa automaticamente a ficha dos produtos.</div>
+        <div id="stock-table" class="data-table"></div>
+      </section>
+
+      <section id="pagamentos" class="tab-panel">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">Pagamentos</p>
+            <h2>Recebimentos</h2>
+          </div>
+          <strong id="payments-total">R$ 0,00</strong>
+        </div>
+        <div id="payments-list" class="data-table"></div>
+      </section>
+
+      <section id="mercadopago" class="tab-panel">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">Credenciais</p>
+            <h2>Mercado Pago</h2>
+          </div>
+        </div>
+        <form id="mp-form" class="panel compact-form">
+          <label class="field">
+            Public Key
+            <input id="mp-public-key" type="text" placeholder="Cole aqui sua Public Key" autocomplete="off" />
+          </label>
+          <label class="field">
+            Access Token
+            <input id="mp-access-token" type="password" placeholder="Cole aqui seu Access Token" autocomplete="off" />
+          </label>
+          <label class="field">
+            Numero de aplicacao
+            <input id="mp-application-id" type="text" placeholder="Ex: 1234567890123456" autocomplete="off" />
+          </label>
+          <label class="field">
+            User ID
+            <input id="mp-user-id" type="text" placeholder="ID da sua conta Mercado Pago" autocomplete="off" />
+          </label>
+          <label class="field">
+            Usuario da conta
+            <input id="mp-test-user" type="text" placeholder="Email/login da conta Mercado Pago" autocomplete="off" />
+          </label>
+          <label class="field">
+            Senha da conta
+            <input id="mp-test-password" type="password" placeholder="Senha de acesso da conta" autocomplete="off" />
+          </label>
+          <label class="field">
+            Codigo de verificacao
+            <input id="mp-verification-code" type="text" placeholder="Codigo de verificacao do app" autocomplete="off" />
+          </label>
+          <div class="form-actions">
+            <button class="primary-button" type="submit">Salvar credenciais</button>
+            <button class="ghost-button" id="test-mp-pix" type="button">Validar Pix API</button>
+          </div>
+        </form>
+        <div class="notice">
+          Cole a Public Key e o Access Token e clique em Salvar credenciais. O Pix usa a API de pagamentos do Mercado Pago para gerar QR Code e Pix copia e cola com vencimento.
+        </div>
+        <div id="mp-pix-test-result" class="notice" hidden></div>
+        <div id="mp-credentials-list" class="data-table product-list"></div>
+      </section>
+
+      <section id="nfce" class="tab-panel">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">Fiscal</p>
+            <h2>Fila NFC-e</h2>
+          </div>
+          <button class="ghost-button" id="mark-nfce-issued" type="button">Marcar como emitidas</button>
+        </div>
+        <div class="notice">
+          Emissão real exige certificado digital, cadastro fiscal e integração SEFAZ/provedor fiscal.
+        </div>
+        <div id="nfce-list" class="data-table"></div>
+      </section>
+
+      <section id="whatsapp" class="tab-panel">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">WhatsApp</p>
+            <h2>Mensagens prontas</h2>
+          </div>
+          <button class="ghost-button" id="copy-last-message" type="button">Copiar última</button>
+        </div>
+        <form id="contact-settings-form" class="panel compact-form admin-only">
+          <label class="field">
+            WhatsApp principal
+            <input id="settings-whatsapp" type="tel" placeholder="14996213006" />
+          </label>
+          <label class="field">
+            Arroba do Instagram
+            <input id="settings-instagram" type="text" placeholder="@pomperoburguer" />
+          </label>
+          <div class="form-actions">
+            <button class="primary-button" type="submit">Salvar contatos</button>
+          </div>
+        </form>
+        <div id="whatsapp-list" class="message-list"></div>
+      </section>
+
+      <section id="equipe" class="tab-panel">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">Permissões</p>
+            <h2>Usuários da loja</h2>
+          </div>
+        </div>
+        <form id="user-form" class="panel compact-form">
+          <input id="user-id" type="hidden" />
+          <label class="field">
+            Nome
+            <input id="user-name" type="text" placeholder="Nome do colaborador" />
+          </label>
+          <label class="field">
+            Usuário
+            <input id="user-username" type="text" placeholder="ex: joao.caixa" />
+          </label>
+          <label class="field">
+            Senha
+            <input id="user-password" type="text" placeholder="Senha de acesso" />
+          </label>
+          <label class="field">
+            Perfil
+            <select id="user-role">
+              <option value="operator">Colaborador: caixa, cozinha, CRM e WhatsApp</option>
+              <option value="admin">Editor/admin: acesso total</option>
+            </select>
+          </label>
+          <label class="check-field">
+            <input id="user-active" type="checkbox" checked />
+            Usuário ativo
+          </label>
+          <div class="form-actions">
+            <button class="primary-button" type="submit">Salvar usuário</button>
+            <button class="ghost-button" id="new-user" type="button">Novo usuário</button>
+          </div>
+        </form>
+        <div id="users-list" class="data-table product-list"></div>
+      </section>
+    </main>
+
+    <section id="ticket" class="ticket" aria-label="Comanda para impressão"></section>
+
+    <script src="shared.js?v=20260708-menu2"></script>
+    <script src="loja.js?v=20260708-pickup-pay-later"></script>
+  </body>
+</html>

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Acompanhar Pedido Pompero</title>
+    <meta
+      name="description"
+      content="Acompanhe o status do seu pedido na Pompero Burguer."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="portal-body">
+    <main class="portal payment-page">
+      <img src="assets/pompero-logo.jpg" alt="Pompero Burguer" />
+      <p class="eyebrow">Acompanhamento</p>
+      <h1>Seu pedido</h1>
+      <label class="field">
+        Código do pedido
+        <input id="track-code" type="text" placeholder="Ex: PMP-AB12" />
+      </label>
+      <button id="track-button" class="primary-button" type="button">Consultar</button>
+      <div id="tracking-result" class="panel"></div>
+      <a class="ghost-button" href="cliente.html">Fazer outro pedido</a>
+    </main>
+
+    <script src="shared.js?v=20260707-prod1"></script>
+    <script src="acompanhar.js?v=20260707-prod1"></script>
+  </body>
+</html>

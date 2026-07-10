@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pompero Burguer: Pedido Online</title>
+    <meta
+      name="description"
+      content="Faca seu pedido online na Pompero Burguer com delivery, cupom e pagamento por Pix, credito ou debito."
+    />
+    <link rel="stylesheet" href="styles.css?v=20260708-checkout-bottom" />
+  </head>
+  <body class="customer-body customer-start">
+    <main class="customer-shell">
+      <section id="customer-entry" class="customer-entry">
+        <div class="customer-brand">
+          <img src="assets/pompero-logo.jpg" alt="Pompero Burguer" />
+          <div>
+            <p class="eyebrow">Pompero Burguer</p>
+            <h1>Pompero Burguer</h1>
+          </div>
+        </div>
+        <p>
+          Escolha como quer falar com a gente agora.
+        </p>
+        <div class="entry-actions">
+          <button id="start-site-order" class="primary-button" type="button">Pedir pelo site</button>
+          <a id="entry-whatsapp" class="ghost-button" href="#" target="_blank" rel="noreferrer">Pedir pelo WhatsApp</a>
+          <a class="ghost-button" href="acompanhar.html">Acompanhar pedido</a>
+          <a id="entry-instagram" class="ghost-button" href="#" target="_blank" rel="noreferrer">Voltar ao Instagram</a>
+        </div>
+      </section>
+
+      <header id="order-header" class="customer-header">
+        <div class="customer-brand">
+          <img src="assets/pompero-logo.jpg" alt="Pompero Burguer" />
+          <div>
+            <p class="eyebrow">Pedido online</p>
+            <h1>Cardapio</h1>
+          </div>
+        </div>
+        <p>Escolha uma categoria, monte o pedido e finalize com Pix, cartão ou pagamento na retirada.</p>
+        <nav id="category-tabs" class="category-tabs" aria-label="Categorias do cardapio">
+          <button class="category-button active" type="button" data-category="artesanais">Artesanais</button>
+          <button class="category-button" type="button" data-category="podroes">Podrão</button>
+          <button class="category-button" type="button" data-category="porcoes">Porções</button>
+          <button class="category-button" type="button" data-category="alcool">Bebidas com álcool</button>
+          <button class="category-button" type="button" data-category="refrigerantes">Refrigerantes e águas</button>
+          <button class="category-button" type="button" data-category="sucos">Sucos e soda</button>
+        </nav>
+      </header>
+
+      <section class="delivery-layout">
+        <div>
+          <div id="client-menu" class="menu-list"></div>
+        </div>
+
+        <aside class="panel payment-panel">
+          <h3>Meu pedido</h3>
+          <div id="client-empty" class="empty-state">Escolha seus hamburgueres.</div>
+          <div id="client-cart" class="cart-items"></div>
+
+          <label class="field">
+            Nome completo
+            <input id="client-name" type="text" placeholder="Ex: Ana Silva" autocomplete="name" />
+          </label>
+          <label class="field">
+            WhatsApp
+            <input id="client-phone" type="tel" placeholder="14999999999" autocomplete="tel" />
+          </label>
+          <label class="field">
+            Email para pagamento
+            <input id="client-email" type="email" placeholder="seuemail@email.com" autocomplete="email" />
+          </label>
+          <div class="choice-grid" aria-label="Forma de recebimento">
+            <label class="choice-card">
+              <input type="radio" name="fulfillment" value="delivery" checked />
+              <span>Entrega</span>
+              <small>Receber no endereço</small>
+            </label>
+            <label class="choice-card">
+              <input type="radio" name="fulfillment" value="pickup" />
+              <span>Retirar na loja</span>
+              <small>Buscar no balcão</small>
+            </label>
+          </div>
+          <div id="address-section" class="address-fields" aria-label="Endereco de entrega">
+            <label class="field">
+              Rua
+              <input id="client-street" type="text" placeholder="Ex: Rua das Flores" autocomplete="address-line1" />
+            </label>
+            <label class="field short-field">
+              Numero
+              <input id="client-number" type="text" placeholder="123" autocomplete="address-line2" />
+            </label>
+            <label class="field">
+              Bairro
+              <input id="client-neighborhood" type="text" placeholder="Ex: Centro" autocomplete="address-level3" />
+            </label>
+            <label class="field">
+              Cidade
+              <input id="client-city" type="text" placeholder="Ourinhos" autocomplete="address-level2" />
+            </label>
+            <label class="field full-field">
+              Complemento
+              <input id="client-complement" type="text" placeholder="Apto, bloco ou ponto de referencia" autocomplete="address-line3" />
+            </label>
+            <small id="delivery-region-help" class="field-help full-field">
+              Entrega disponivel somente em Ourinhos. Conferimos a cidade antes de gerar o pagamento.
+            </small>
+            <a
+              id="maps-check-link"
+              class="small-button full-field"
+              href="https://www.google.com/maps/place/Ourinhos,+SP/@-22.980122,-49.9256905,13z/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Conferir endereco no Google Maps
+            </a>
+          </div>
+          <label class="field">
+            Cupom
+            <input id="client-coupon" type="text" placeholder="Ex: POMPERO5-3006" />
+          </label>
+          <div class="payment-flow">
+            <p class="eyebrow">Pagamento</p>
+            <div class="choice-grid">
+              <label class="choice-card">
+                <input type="radio" name="paymentTiming" value="online" checked />
+                <span>Realizar pagamento</span>
+                <small>Pix, credito ou debito</small>
+              </label>
+              <label class="choice-card">
+                <input type="radio" name="paymentTiming" value="pickup_pay" />
+                <span>Pagar ao retirar</span>
+                <small>Finaliza sem pagamento online</small>
+              </label>
+            </div>
+            <div id="online-payment-options" class="choice-grid">
+              <label class="choice-card">
+                <input type="radio" name="onlinePayment" value="pix" checked />
+                <span>Pix</span>
+                <small>Copia e cola, 5 min</small>
+              </label>
+              <label class="choice-card">
+                <input type="radio" name="onlinePayment" value="credit" />
+                <span>Cartao de credito</span>
+                <small>Mercado Pago</small>
+              </label>
+              <label class="choice-card">
+                <input type="radio" name="onlinePayment" value="debit" />
+                <span>Cartao de debito</span>
+                <small>Mercado Pago</small>
+              </label>
+            </div>
+          </div>
+
+          <form id="card-payment-form" class="card-payment-form" hidden>
+            <strong>Dados do cartao</strong>
+            <div class="mp-card-grid">
+              <label class="field full-field">
+                Numero do cartao
+                <div id="form-checkout__cardNumber" class="mp-secure-field"></div>
+              </label>
+              <label class="field">
+                Validade
+                <div id="form-checkout__expirationDate" class="mp-secure-field"></div>
+              </label>
+              <label class="field">
+                CVV
+                <div id="form-checkout__securityCode" class="mp-secure-field"></div>
+              </label>
+              <label class="field full-field">
+                Nome impresso no cartao
+                <input id="form-checkout__cardholderName" type="text" autocomplete="cc-name" />
+              </label>
+              <label class="field">
+                CPF
+                <input id="form-checkout__identificationNumber" type="text" inputmode="numeric" autocomplete="off" />
+              </label>
+              <label class="field">
+                Parcelas
+                <select id="form-checkout__installments"></select>
+              </label>
+              <select id="form-checkout__issuer" hidden></select>
+              <select id="form-checkout__identificationType" hidden></select>
+            </div>
+            <button id="card-form-submit" type="submit" hidden>Enviar cartão</button>
+            <small id="card-payment-status">Os dados do cartão são protegidos pelo Mercado Pago.</small>
+          </form>
+
+          <div class="total-line">
+            <span>Subtotal</span>
+            <strong id="client-subtotal">R$ 0,00</strong>
+          </div>
+          <div class="total-line">
+            <span>Desconto</span>
+            <strong id="client-discount">R$ 0,00</strong>
+          </div>
+          <div class="total-line">
+            <span>Frete</span>
+            <strong id="client-delivery-fee">R$ 0,00</strong>
+          </div>
+          <div class="total-line">
+            <span>Total</span>
+            <strong id="client-total">R$ 0,00</strong>
+          </div>
+          <button class="primary-button" id="client-send" type="button">
+            Finalizar pedido
+          </button>
+          <button class="danger-button" id="client-clear" type="button">
+            Limpar pedido
+          </button>
+          <div id="client-success" class="notice" hidden>
+            Pedido criado.
+            <div id="order-progress" class="order-progress"></div>
+            <div id="pix-box" class="pix-box" hidden>
+              <strong>Pix copia e cola</strong>
+              <img id="pix-qr-image" alt="QR Code Pix" hidden />
+              <textarea id="pix-copy-code" rows="4" readonly></textarea>
+              <button id="copy-pix-code" class="small-button" type="button">Copiar codigo Pix</button>
+              <small id="pix-countdown">Validade: 05:00</small>
+            </div>
+            <a id="payment-link" class="small-button" href="#" hidden>Abrir Mercado Pago</a>
+            <a id="tracking-link" class="small-button" href="#" hidden>Acompanhar pedido</a>
+          </div>
+        </aside>
+      </section>
+    </main>
+
+    <button id="bot-toggle" class="bot-toggle" type="button" aria-expanded="false" aria-controls="ai-assistant">
+      Ajuda
+    </button>
+    <section id="ai-assistant" class="ai-assistant floating-chat" aria-label="Robo de atendimento" hidden>
+      <div class="chat-header">
+        <div>
+          <p class="eyebrow">Robo Pompero</p>
+          <h2>Ajuda rapida</h2>
+        </div>
+        <button id="bot-close" class="small-button" type="button">Fechar</button>
+      </div>
+      <div id="bot-messages" class="bot-messages"></div>
+      <div class="bot-actions">
+        <button class="small-button" type="button" data-bot-prompt="cardapio">Cardapio</button>
+        <button class="small-button" type="button" data-bot-prompt="cupom">Cupom</button>
+        <button class="small-button" type="button" data-bot-prompt="pagamento">Pagamento</button>
+        <button class="small-button" type="button" data-bot-prompt="entrega">Entrega</button>
+      </div>
+      <div class="bot-input-row">
+        <input id="bot-input" type="text" placeholder="Digite sua duvida..." />
+        <button id="bot-send" class="primary-button" type="button">Enviar</button>
+      </div>
+    </section>
+
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+    <script src="shared.js?v=20260708-menu2"></script>
+    <script src="cliente.js?v=20260708-pickup-pay-later"></script>
+  </body>
+</html>

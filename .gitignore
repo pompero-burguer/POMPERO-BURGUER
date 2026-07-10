@@ -1,0 +1,11 @@
+node_modules/
+data/
+tools/
+.env
+.env.*
+mp-config.local.json
+pompero-state.local.json
+public-url.local.txt
+cloudflared-tunnel.log
+server.log
+server.err.log
