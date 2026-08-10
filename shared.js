@@ -768,15 +768,29 @@ const Pompero = (() => {
 
   async function syncFromServer() {
     try {
+      const localState = load();
       const response = await fetch("/api/state", { cache: "no-store" });
       if (response.ok) {
         const serverState = normalizeState(await response.json());
+        const localLogo = localState.settings?.logoUrl;
+        const serverLogo = serverState.settings?.logoUrl;
+        const localLogoUpdatedAt = new Date(localState.settings?.logoUpdatedAt || 0).getTime();
+        const serverLogoUpdatedAt = new Date(serverState.settings?.logoUpdatedAt || 0).getTime();
+        const localLogoIsNewer = localLogoUpdatedAt && localLogoUpdatedAt >= serverLogoUpdatedAt;
+        if (
+          localLogo &&
+          localLogo !== defaultSettings.logoUrl &&
+          (localLogoIsNewer || !serverLogo || serverLogo === defaultSettings.logoUrl)
+        ) {
+          serverState.settings.logoUrl = localLogo;
+          serverState.settings.logoUpdatedAt = localState.settings.logoUpdatedAt || new Date().toISOString();
+          save(serverState);
+        }
         localStorage.setItem(key, JSON.stringify(serverState));
         return serverState;
       }
 
       if (response.status === 404) {
-        const localState = load();
         await fetch("/api/state", {
           method: "POST",
           headers: {

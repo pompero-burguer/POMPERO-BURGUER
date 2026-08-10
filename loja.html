@@ -47,6 +47,7 @@
         <button class="tab-button admin-only" type="button" data-tab="pagamentos">Pagamentos</button>
         <button class="tab-button admin-only" type="button" data-tab="mercadopago">Mercado Pago</button>
         <button class="tab-button admin-only" type="button" data-tab="nfce">NFC-e</button>
+        <button class="tab-button admin-only" type="button" data-tab="marca">Marca</button>
         <button class="tab-button" type="button" data-tab="whatsapp">WhatsApp</button>
         <button class="tab-button admin-only" type="button" data-tab="equipe">Equipe</button>
       </nav>
@@ -307,21 +308,6 @@
           <button class="ghost-button" id="copy-last-message" type="button">Copiar última</button>
         </div>
         <form id="contact-settings-form" class="panel compact-form admin-only">
-          <div class="brand-settings-preview">
-            <img id="settings-logo-preview" data-brand-logo src="assets/pompero-logo.jpg" alt="Logo atual da Pompero Burguer" />
-            <div>
-              <strong>Logo/foto da loja</strong>
-              <small>Essa imagem aparece na tela do cliente, acompanhamento, pagamento e sistema da loja.</small>
-            </div>
-          </div>
-          <label class="field">
-            Link da logo
-            <input id="settings-logo-url" type="url" placeholder="https://exemplo.com/minha-logo.png" />
-          </label>
-          <label class="field">
-            Enviar imagem do computador
-            <input id="settings-logo-file" type="file" accept="image/png,image/jpeg,image/webp" />
-          </label>
           <label class="field">
             WhatsApp principal
             <input id="settings-whatsapp" type="tel" placeholder="14996213006" />
@@ -335,6 +321,35 @@
           </div>
         </form>
         <div id="whatsapp-list" class="message-list"></div>
+      </section>
+
+      <section id="marca" class="tab-panel">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">Identidade visual</p>
+            <h2>Foto e logo da loja</h2>
+          </div>
+        </div>
+        <form id="brand-settings-form" class="panel compact-form admin-only">
+          <div class="brand-settings-preview">
+            <img id="settings-logo-preview" data-brand-logo src="assets/pompero-logo.jpg" alt="Logo atual da Pompero Burguer" />
+            <div>
+              <strong>Logo/foto atual</strong>
+              <small>Essa imagem fica fixa na tela do cliente, acompanhamento, pagamento e sistema da loja.</small>
+            </div>
+          </div>
+          <label class="field">
+            Link da logo
+            <input id="settings-logo-url" type="text" placeholder="https://exemplo.com/minha-logo.png" />
+          </label>
+          <label class="field">
+            Enviar imagem do computador
+            <input id="settings-logo-file" type="file" accept="image/png,image/jpeg,image/webp" />
+          </label>
+          <div class="form-actions">
+            <button class="primary-button" type="submit">Salvar logo fixa</button>
+          </div>
+        </form>
       </section>
 
       <section id="equipe" class="tab-panel">
@@ -380,7 +395,7 @@
 
     <section id="ticket" class="ticket" aria-label="Comanda para impressão"></section>
 
-    <script src="shared.js?v=20260810-logo-sync"></script>
-    <script src="loja.js?v=20260810-logo-sync"></script>
+    <script src="shared.js?v=20260810-brand-tab"></script>
+    <script src="loja.js?v=20260810-brand-tab"></script>
   </body>
 </html>
