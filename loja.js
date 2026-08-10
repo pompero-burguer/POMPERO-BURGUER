@@ -930,6 +930,9 @@ function renderNfce(state) {
 }
 
 function renderWhatsapp(state) {
+  const logoUrl = state.settings?.logoUrl || Pompero.defaultSettings.logoUrl;
+  qs("#settings-logo-url").value = logoUrl;
+  qs("#settings-logo-preview").src = logoUrl;
   qs("#settings-whatsapp").value = state.settings?.whatsappPhone || "";
   qs("#settings-instagram").value = state.settings?.instagramHandle || "";
   qs("#whatsapp-list").innerHTML = state.messages.length
@@ -959,6 +962,7 @@ function saveContactSettings(event) {
   const state = Pompero.load();
   state.settings = {
     ...(state.settings || {}),
+    logoUrl: qs("#settings-logo-url").value.trim() || Pompero.defaultSettings.logoUrl,
     whatsappPhone: Pompero.cleanPhone(qs("#settings-whatsapp").value) || Pompero.defaultSettings.whatsappPhone,
     instagramHandle: qs("#settings-instagram").value.trim().replace(/^@/, ""),
   };
@@ -1070,6 +1074,7 @@ function renderSummary(state) {
 
 function renderAll() {
   const state = Pompero.load();
+  Pompero.applyBrandLogo(state);
   renderProcessBoard(state);
   renderPending(state);
   renderPaymentWatch(state);
@@ -1087,6 +1092,7 @@ function renderAll() {
 
 async function bootStore() {
   await Pompero.syncFromServer();
+  Pompero.applyBrandLogo();
   restoreSession();
   clearTestSalesOnce();
   applyPermissions();
@@ -1134,6 +1140,30 @@ qs("#new-user").addEventListener("click", clearUserForm);
 qs("#mp-form").addEventListener("submit", saveMercadoPagoCredentials);
 qs("#test-mp-pix").addEventListener("click", testMercadoPagoPix);
 qs("#contact-settings-form").addEventListener("submit", saveContactSettings);
+qs("#settings-logo-url").addEventListener("input", () => {
+  qs("#settings-logo-preview").src = qs("#settings-logo-url").value.trim() || Pompero.defaultSettings.logoUrl;
+});
+qs("#settings-logo-file").addEventListener("change", (event) => {
+  const file = event.target.files?.[0];
+  if (!file) return;
+  if (!file.type.startsWith("image/")) {
+    alert("Escolha um arquivo de imagem.");
+    event.target.value = "";
+    return;
+  }
+  if (file.size > 900 * 1024) {
+    alert("A imagem precisa ter menos de 900 KB para salvar no sistema.");
+    event.target.value = "";
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.addEventListener("load", () => {
+    qs("#settings-logo-url").value = reader.result;
+    qs("#settings-logo-preview").src = reader.result;
+  });
+  reader.readAsDataURL(file);
+});
 qs("#reset-stock").addEventListener("click", () => {
   if (!requireAdmin()) return;
   const state = Pompero.load();

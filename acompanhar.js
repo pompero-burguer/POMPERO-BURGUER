@@ -4,6 +4,7 @@ const input = document.querySelector("#track-code");
 const result = document.querySelector("#tracking-result");
 
 input.value = initialCode;
+Pompero.applyBrandLogo();
 
 function findOrder(code) {
   const state = Pompero.load();
@@ -19,6 +20,7 @@ function findOrder(code) {
 
 async function renderStatus() {
   await Pompero.syncFromServer();
+  Pompero.applyBrandLogo();
   const order = findOrder(input.value);
 
   if (!order) {

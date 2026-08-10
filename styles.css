@@ -317,6 +317,32 @@ button {
   object-fit: cover;
 }
 
+.brand-settings-preview {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 248, 236, 0.06);
+}
+
+.brand-settings-preview img {
+  width: 68px;
+  height: 68px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 1px solid var(--line);
+  background: #fff;
+}
+
+.brand-settings-preview small {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  line-height: 1.35;
+}
+
 .tabs {
   margin-top: 22px;
   display: grid;

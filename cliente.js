@@ -711,6 +711,7 @@ async function submitCardPayment() {
 
 async function initClient() {
   await Pompero.syncFromServer();
+  Pompero.applyBrandLogo();
   renderEntryLinks();
   renderMenu();
   renderCart();

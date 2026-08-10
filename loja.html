@@ -8,12 +8,12 @@
       name="description"
       content="Sistema interno da Pompero Burguer com frente de caixa, pedidos online, CRM, estoque, pagamentos, NFC-e e WhatsApp."
     />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=20260810-logo" />
   </head>
   <body class="locked">
     <section id="login-screen" class="login-screen" aria-label="Entrada do sistema da loja">
       <form id="login-form" class="login-card">
-        <img src="assets/pompero-logo.jpg" alt="Pompero Burguer" />
+        <img data-brand-logo src="assets/pompero-logo.jpg" alt="Pompero Burguer" />
         <div>
           <p class="eyebrow">Acesso interno</p>
           <h1>Entrar na loja</h1>
@@ -34,7 +34,7 @@
 
     <aside class="sidebar" aria-label="Módulos internos da loja">
       <a class="brand" href="#caixa" data-open-tab="caixa">
-        <img src="assets/pompero-logo.jpg" alt="Pompero Burguer" />
+        <img data-brand-logo src="assets/pompero-logo.jpg" alt="Pompero Burguer" />
         <span>Pompero Loja</span>
       </a>
       <nav class="tabs">
@@ -307,6 +307,21 @@
           <button class="ghost-button" id="copy-last-message" type="button">Copiar última</button>
         </div>
         <form id="contact-settings-form" class="panel compact-form admin-only">
+          <div class="brand-settings-preview">
+            <img id="settings-logo-preview" data-brand-logo src="assets/pompero-logo.jpg" alt="Logo atual da Pompero Burguer" />
+            <div>
+              <strong>Logo/foto da loja</strong>
+              <small>Essa imagem aparece na tela do cliente, acompanhamento, pagamento e sistema da loja.</small>
+            </div>
+          </div>
+          <label class="field">
+            Link da logo
+            <input id="settings-logo-url" type="url" placeholder="https://exemplo.com/minha-logo.png" />
+          </label>
+          <label class="field">
+            Enviar imagem do computador
+            <input id="settings-logo-file" type="file" accept="image/png,image/jpeg,image/webp" />
+          </label>
           <label class="field">
             WhatsApp principal
             <input id="settings-whatsapp" type="tel" placeholder="14996213006" />
@@ -365,7 +380,7 @@
 
     <section id="ticket" class="ticket" aria-label="Comanda para impressão"></section>
 
-    <script src="shared.js?v=20260708-menu2"></script>
-    <script src="loja.js?v=20260708-pickup-pay-later"></script>
+    <script src="shared.js?v=20260810-logo"></script>
+    <script src="loja.js?v=20260810-logo"></script>
   </body>
 </html>

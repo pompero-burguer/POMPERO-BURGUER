@@ -50,6 +50,7 @@ async function renderMercadoPagoWallet() {
 
 async function initPayment() {
   await Pompero.syncFromServer();
+  Pompero.applyBrandLogo();
   const state = Pompero.load();
   order = state.pendingPayments.find((item) => item.paymentId === paymentId);
 

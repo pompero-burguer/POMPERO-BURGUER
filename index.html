@@ -8,11 +8,11 @@
       name="description"
       content="Entrada do sistema Pompero Burguer com site do cliente e sistema interno da loja."
     />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=20260810-logo" />
   </head>
   <body class="portal-body">
     <main class="portal">
-      <img src="assets/pompero-logo.jpg" alt="Pompero Burguer" />
+      <img data-brand-logo src="assets/pompero-logo.jpg" alt="Pompero Burguer" />
       <p class="eyebrow">Pompero Burguer</p>
       <h1>Escolha o acesso</h1>
       <div class="portal-actions">
@@ -25,5 +25,9 @@
         aguardando aceite e impressão da comanda.
       </p>
     </main>
+    <script src="shared.js?v=20260810-logo"></script>
+    <script>
+      Pompero.syncFromServer().then(() => Pompero.applyBrandLogo());
+    </script>
   </body>
 </html>

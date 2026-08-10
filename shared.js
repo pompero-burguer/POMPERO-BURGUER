@@ -228,6 +228,7 @@ const Pompero = (() => {
   const defaultSettings = {
     whatsappPhone: "14996213006",
     instagramHandle: "",
+    logoUrl: "assets/pompero-logo.jpg",
   };
 
   const productUpdates = {
@@ -791,6 +792,17 @@ const Pompero = (() => {
     return load();
   }
 
+  function currentLogoUrl(state = load()) {
+    return state.settings?.logoUrl || defaultSettings.logoUrl;
+  }
+
+  function applyBrandLogo(state = load()) {
+    const logoUrl = currentLogoUrl(state);
+    document.querySelectorAll("[data-brand-logo]").forEach((image) => {
+      image.src = logoUrl;
+    });
+  }
+
   function subtotal(items) {
     return items.reduce((total, item) => total + item.price, 0);
   }
@@ -935,6 +947,8 @@ const Pompero = (() => {
     load,
     save,
     syncFromServer,
+    currentLogoUrl,
+    applyBrandLogo,
     subtotal,
     discountFor,
     registerSale,
