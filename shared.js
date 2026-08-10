@@ -594,7 +594,7 @@ const Pompero = (() => {
       });
     });
 
-    return Array.from(byId.values());
+    return repairSavedText(Array.from(byId.values()));
   }
 
   function normalizeStock(savedStock = {}) {
@@ -646,6 +646,58 @@ const Pompero = (() => {
     return (phone || "").replace(/\D/g, "");
   }
 
+  function repairText(text) {
+    if (typeof text !== "string") return text;
+
+    const directFixes = {
+      "Por\uFFFD\uFFFDes": "Porções",
+      "Por\u00EF\u00BF\u00BD\u00EF\u00BF\u00BDes": "Porções",
+      "Refrigerantes e \uFFFDguas": "Refrigerantes e Águas",
+      "Refrigerantes e \u00EF\u00BF\u00BDguas": "Refrigerantes e Águas",
+      "Bebidas com \uFFFDlcool": "Bebidas com Álcool",
+      "Bebidas com \u00EF\u00BF\u00BDlcool": "Bebidas com Álcool",
+      "Suco de Lim\uFFFDo": "Suco de Limão",
+      "Suco de Lim\u00EF\u00BF\u00BDo": "Suco de Limão",
+      "Suco de Maracuj\uFFFD": "Suco de Maracujá",
+      "Suco de Maracuj\u00EF\u00BF\u00BD": "Suco de Maracujá",
+      "Suco de maracuj\uFFFD no copo.": "Suco de maracujá no copo.",
+      "Suco de maracuj\u00EF\u00BF\u00BD no copo.": "Suco de maracujá no copo.",
+      "Em prepara\uFFFD\uFFFDo": "Em preparação",
+      "Em prepara\u00EF\u00BF\u00BD\u00EF\u00BF\u00BDo": "Em preparação",
+    };
+
+    let fixed = directFixes[text] || text;
+    if (/[\u00C3\u00C2\u00E2]/.test(fixed)) {
+      try {
+        fixed = decodeURIComponent(escape(fixed));
+      } catch {
+        fixed = fixed
+          .replaceAll("\u00C3\u00A1", "á")
+          .replaceAll("\u00C3\u00A9", "é")
+          .replaceAll("\u00C3\u00AD", "í")
+          .replaceAll("\u00C3\u00B3", "ó")
+          .replaceAll("\u00C3\u00BA", "ú")
+          .replaceAll("\u00C3\u00A2", "â")
+          .replaceAll("\u00C3\u00AA", "ê")
+          .replaceAll("\u00C3\u00B4", "ô")
+          .replaceAll("\u00C3\u00A3", "ã")
+          .replaceAll("\u00C3\u00B5", "õ")
+          .replaceAll("\u00C3\u00A7", "ç")
+          .replaceAll("\u00E2\u0080\u00A2", "•");
+      }
+    }
+
+    return directFixes[fixed] || fixed;
+  }
+
+  function repairSavedText(value) {
+    if (Array.isArray(value)) return value.map(repairSavedText);
+    if (value && typeof value === "object") {
+      return Object.fromEntries(Object.entries(value).map(([itemKey, itemValue]) => [itemKey, repairSavedText(itemValue)]));
+    }
+    return repairText(value);
+  }
+
   function normalizeSaleStatus(status) {
     const map = {
       "Aceito pela loja": "Pedido aceito",
@@ -657,12 +709,13 @@ const Pompero = (() => {
   }
 
   function normalizeState(parsed = {}) {
+    parsed = repairSavedText(parsed);
     const savedMenu = parsed.menu || [];
     const mergedMenu = [
       ...savedMenu,
       ...structuredClone(menu).filter((item) => !savedMenu.some((savedItem) => savedItem.id === item.id)),
     ];
-    return {
+    const normalized = {
       menu: normalizeMenu(mergedMenu),
       stock: normalizeStock(parsed.stock),
       pendingPayments: parsed.pendingPayments || [],
@@ -683,6 +736,8 @@ const Pompero = (() => {
       maintenance: parsed.maintenance || {},
       serverUpdatedAt: parsed.serverUpdatedAt || "",
     };
+
+    return repairSavedText(normalized);
   }
 
   function load() {
