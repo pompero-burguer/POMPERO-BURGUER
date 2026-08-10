@@ -755,14 +755,15 @@ const Pompero = (() => {
     const normalized = normalizeState(state);
     localStorage.setItem(key, JSON.stringify(normalized));
 
-    fetch("/api/state", {
+    return fetch("/api/state", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(normalized),
-      keepalive: true,
-    }).catch(() => {});
+    })
+      .then((response) => response.ok)
+      .catch(() => false);
   }
 
   async function syncFromServer() {

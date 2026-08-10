@@ -955,7 +955,7 @@ function renderWhatsapp(state) {
     : `<div class="empty-state">Mensagens aparecem após aceitar/finalizar vendas.</div>`;
 }
 
-function saveContactSettings(event) {
+async function saveContactSettings(event) {
   event.preventDefault();
   if (!requireAdmin()) return;
 
@@ -966,9 +966,13 @@ function saveContactSettings(event) {
     whatsappPhone: Pompero.cleanPhone(qs("#settings-whatsapp").value) || Pompero.defaultSettings.whatsappPhone,
     instagramHandle: qs("#settings-instagram").value.trim().replace(/^@/, ""),
   };
-  Pompero.save(state);
+  const savedOnServer = await Pompero.save(state);
   renderAll();
-  alert("Contatos salvos para a tela inicial do cliente.");
+  if (!savedOnServer) {
+    alert("A logo mudou neste navegador, mas não salvou no servidor. Tente uma imagem menor ou um link de imagem.");
+    return;
+  }
+  alert("Logo e contatos salvos para todas as páginas.");
 }
 
 function clearUserForm() {

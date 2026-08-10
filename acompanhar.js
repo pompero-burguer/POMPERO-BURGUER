@@ -9,11 +9,7 @@ Pompero.applyBrandLogo();
 function findOrder(code) {
   const state = Pompero.load();
   const normalized = code.trim().toUpperCase();
-  const collections = [
-    ...state.pendingPayments,
-    ...state.pendingOrders,
-    ...state.sales,
-  ];
+  const collections = [...state.pendingPayments, ...state.pendingOrders, ...state.sales];
 
   return collections.find((order) => order.code === normalized);
 }
@@ -39,11 +35,17 @@ async function renderStatus() {
   `;
 }
 
-document.querySelector("#track-button").addEventListener("click", renderStatus);
+async function initTracking() {
+  await Pompero.syncFromServer();
+  Pompero.applyBrandLogo();
 
-if (initialCode) {
-  renderStatus();
+  if (initialCode) {
+    renderStatus();
+  }
 }
+
+document.querySelector("#track-button").addEventListener("click", renderStatus);
+initTracking();
 
 setInterval(() => {
   if (input.value.trim()) {
