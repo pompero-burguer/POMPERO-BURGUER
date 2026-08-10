@@ -8,10 +8,10 @@ const Pompero = (() => {
     {
       id: "salada-burger",
       name: "Salada Burger",
-      flavor: "ClÃ¡ssico",
+      flavor: "Clássico",
       price: 30.9,
       photo: "assets/lanches/salada-burger.jpg",
-      description: "PÃ£o brioche, hambÃºrguer 170g, queijo, alface, tomate e molho especial.",
+      description: "Pão brioche, hambúrguer 170g, queijo, alface, tomate e molho especial.",
       recipe: { pao: 1, carne170: 1, queijo: 1, alface: 1, tomate: 1, fritas: 1 },
     },
     {
@@ -20,7 +20,7 @@ const Pompero = (() => {
       flavor: "Bacon",
       price: 32.9,
       photo: "assets/lanches/salada-bacon.jpg",
-      description: "PÃ£o brioche, hambÃºrguer 170g, queijo, bacon, salada e molho especial.",
+      description: "Pão brioche, hambúrguer 170g, queijo, bacon, salada e molho especial.",
       recipe: { pao: 1, carne170: 1, queijo: 1, bacon: 1, alface: 1, tomate: 1, fritas: 1 },
     },
     {
@@ -56,7 +56,7 @@ const Pompero = (() => {
       flavor: "Premium",
       price: 39,
       photo: "assets/lanches/provobacon-pepper.jpg",
-      description: "HambÃºrguer 180g, queijo prato, provolone empanado, bacon e geleia de pimenta.",
+      description: "Hambúrguer 180g, queijo prato, provolone empanado, bacon e geleia de pimenta.",
       recipe: { pao: 1, carne180: 1, queijo: 1, provolone: 1, bacon: 1, geleiaPimenta: 1 },
     },
     {
@@ -74,7 +74,7 @@ const Pompero = (() => {
       flavor: "Kids",
       price: 19.9,
       photo: "assets/lanches/novos/x-burguer-kids.png",
-      description: "PÃ£o macio, hambÃºrguer, queijo e molho suave em porÃ§Ã£o menor.",
+      description: "Pão macio, hambúrguer, queijo e molho suave em porção menor.",
       recipe: { pao: 1, carne100: 1, presunto: 1, queijo: 1 },
     },
     {
@@ -83,7 +83,7 @@ const Pompero = (() => {
       flavor: "Tradicional",
       price: 27.9,
       photo: "assets/lanches/novos/x-salada.png",
-      description: "PÃ£o, hambÃºrguer, queijo, alface, tomate, maionese e molho da casa.",
+      description: "Pão, hambúrguer, queijo, alface, tomate, maionese e molho da casa.",
       recipe: { pao: 1, carne170: 1, queijo: 1, alface: 1, tomate: 1, maionese: 1 },
     },
     {
@@ -101,7 +101,7 @@ const Pompero = (() => {
       flavor: "Bacon",
       price: 31.9,
       photo: "assets/lanches/novos/x-bacon.png",
-      description: "HambÃºrguer, queijo, bacon crocante e molho especial.",
+      description: "Hambúrguer, queijo, bacon crocante e molho especial.",
       recipe: { pao: 1, carne170: 1, queijo: 1, bacon: 1 },
     },
     {
@@ -110,7 +110,7 @@ const Pompero = (() => {
       flavor: "Calabresa",
       price: 31.9,
       photo: "assets/lanches/novos/x-calabresa.png",
-      description: "HambÃºrguer, queijo, calabresa grelhada, cebola e molho da casa.",
+      description: "Hambúrguer, queijo, calabresa grelhada, cebola e molho da casa.",
       recipe: { pao: 1, carne170: 1, queijo: 1 },
     },
     {
@@ -119,7 +119,7 @@ const Pompero = (() => {
       flavor: "Egg",
       price: 30.9,
       photo: "assets/lanches/novos/x-egg.png",
-      description: "HambÃºrguer, queijo, ovo frito e molho especial.",
+      description: "Hambúrguer, queijo, ovo frito e molho especial.",
       recipe: { pao: 1, carne170: 1, queijo: 1 },
     },
     {
@@ -128,7 +128,7 @@ const Pompero = (() => {
       flavor: "Hot dog",
       price: 20.9,
       photo: "assets/lanches/novos/hot-dog.png",
-      description: "PÃ£o, salsicha, molho, milho, batata palha, maionese, ketchup e mostarda.",
+      description: "Pão, salsicha, molho, milho, batata palha, maionese, ketchup e mostarda.",
       recipe: { pao: 1 },
     },
     {
@@ -146,7 +146,7 @@ const Pompero = (() => {
       flavor: "Especial da casa",
       price: 36.9,
       photo: "assets/lanches/novos/x-pompero.png",
-      description: "Lanche da casa com hambÃºrguer, queijo, bacon, salada, cebola caramelizada e molho Pompero.",
+      description: "Lanche da casa com hambúrguer, queijo, bacon, salada, cebola caramelizada e molho Pompero.",
       recipe: { pao: 1, carne170: 1, queijo: 1, bacon: 1, alface: 1, tomate: 1 },
     },
     {
@@ -155,16 +155,16 @@ const Pompero = (() => {
       flavor: "Completo",
       price: 39.9,
       photo: "assets/lanches/novos/x-tudo.png",
-      description: "Lanche completo com hambÃºrguer, queijo, presunto, bacon, ovo, salada, milho, batata palha e molho.",
+      description: "Lanche completo com hambúrguer, queijo, presunto, bacon, ovo, salada, milho, batata palha e molho.",
       recipe: { pao: 1, carne170: 1, queijo: 1, bacon: 1, alface: 1, tomate: 1 },
     },
   ];
 
   const initialStock = {
-    pao: { name: "PÃ£o", unit: "kg", qty: 8, min: 1.5 },
-    carne170: { name: "HambÃºrguer 170g", unit: "kg", qty: 9.35, min: 2.04 },
-    carne180: { name: "HambÃºrguer 180g", unit: "kg", qty: 4.32, min: 1.44 },
-    carne100: { name: "HambÃºrguer 100g", unit: "kg", qty: 7, min: 2 },
+    pao: { name: "Pão", unit: "kg", qty: 8, min: 1.5 },
+    carne170: { name: "Hambúrguer 170g", unit: "kg", qty: 9.35, min: 2.04 },
+    carne180: { name: "Hambúrguer 180g", unit: "kg", qty: 4.32, min: 1.44 },
+    carne100: { name: "Hambúrguer 100g", unit: "kg", qty: 7, min: 2 },
     queijo: { name: "Queijo mussarela/prato", unit: "kg", qty: 3, min: 0.7 },
     cheddar: { name: "Creme de cheddar", unit: "kg", qty: 2, min: 0.5 },
     bacon: { name: "Bacon", unit: "kg", qty: 4, min: 0.8 },
@@ -172,7 +172,7 @@ const Pompero = (() => {
     presunto: { name: "Presunto", unit: "kg", qty: 2, min: 0.4 },
     ovo: { name: "Ovo", unit: "kg", qty: 3, min: 0.6 },
     salsicha: { name: "Salsicha", unit: "kg", qty: 5, min: 1 },
-    pure: { name: "PurÃª de batata", unit: "kg", qty: 3, min: 0.7 },
+    pure: { name: "Purê de batata", unit: "kg", qty: 3, min: 0.7 },
     milho: { name: "Milho", unit: "kg", qty: 2, min: 0.4 },
     ervilha: { name: "Ervilha", unit: "kg", qty: 2, min: 0.4 },
     batataPalha: { name: "Batata palha", unit: "kg", qty: 2.5, min: 0.5 },
@@ -236,7 +236,7 @@ const Pompero = (() => {
       flavor: "Kids",
       price: 19.9,
       photo: "assets/lanches/novos/x-burguer-kids-v2.png",
-      description: "PÃ£o de hambÃºrguer, hambÃºrguer, presunto e queijo mussarela derretido.",
+      description: "Pão de hambúrguer, hambúrguer, presunto e queijo mussarela derretido.",
       recipe: { pao: 1, carne100: 1, queijo: 1 },
     },
     "x-salada": {
@@ -244,7 +244,7 @@ const Pompero = (() => {
       flavor: "Tradicional",
       price: 27.9,
       photo: "assets/lanches/novos/x-salada-v2.png",
-      description: "PÃ£o de hambÃºrguer, hambÃºrguer grelhado, queijo mussarela derretido, alface, tomate e maionese caseira.",
+      description: "Pão de hambúrguer, hambúrguer grelhado, queijo mussarela derretido, alface, tomate e maionese caseira.",
       recipe: { pao: 1, carne170: 1, queijo: 1, alface: 1, tomate: 1 },
     },
     "x-salada-especial": {
@@ -252,7 +252,7 @@ const Pompero = (() => {
       flavor: "Especial",
       price: 32.9,
       photo: "assets/lanches/novos/x-salada-especial-v2.png",
-      description: "PÃ£o de hambÃºrguer, hambÃºrguer artesanal alto, queijo mussarela duplo, alface, tomate, cebola roxa e maionese especial da casa.",
+      description: "Pão de hambúrguer, hambúrguer artesanal alto, queijo mussarela duplo, alface, tomate, cebola roxa e maionese especial da casa.",
       recipe: { pao: 1, carne170: 1, queijo: 2, alface: 1, tomate: 1, cebola: 1, maionese: 1 },
     },
     "x-egg": {
@@ -260,7 +260,7 @@ const Pompero = (() => {
       flavor: "Egg",
       price: 30.9,
       photo: "assets/lanches/novos/x-egg-v2.png",
-      description: "PÃ£o de hambÃºrguer, hambÃºrguer grelhado, ovo frito na chapa, queijo mussarela derretido, alface, tomate e maionese caseira.",
+      description: "Pão de hambúrguer, hambúrguer grelhado, ovo frito na chapa, queijo mussarela derretido, alface, tomate e maionese caseira.",
       recipe: { pao: 1, carne170: 1, ovo: 1, queijo: 1, alface: 1, tomate: 1, maionese: 1 },
     },
     "x-bacon": {
@@ -268,7 +268,7 @@ const Pompero = (() => {
       flavor: "Bacon",
       price: 31.9,
       photo: "assets/lanches/novos/x-bacon-v2.png",
-      description: "PÃ£o de hambÃºrguer, hambÃºrguer grelhado, muito bacon crocante, queijo mussarela derretido e maionese caseira.",
+      description: "Pão de hambúrguer, hambúrguer grelhado, muito bacon crocante, queijo mussarela derretido e maionese caseira.",
       recipe: { pao: 1, carne170: 1, bacon: 2, queijo: 1, maionese: 1 },
     },
     "x-calabresa": {
@@ -276,7 +276,7 @@ const Pompero = (() => {
       flavor: "Calabresa",
       price: 31.9,
       photo: "assets/lanches/novos/x-calabresa-v2.png",
-      description: "PÃ£o de hambÃºrguer, hambÃºrguer grelhado, calabresa defumada fatiada na chapa, queijo mussarela derretido e maionese caseira.",
+      description: "Pão de hambúrguer, hambúrguer grelhado, calabresa defumada fatiada na chapa, queijo mussarela derretido e maionese caseira.",
       recipe: { pao: 1, carne170: 1, calabresa: 1, queijo: 1, maionese: 1 },
     },
     "x-tudo": {
@@ -284,16 +284,16 @@ const Pompero = (() => {
       flavor: "Completo",
       price: 39.9,
       photo: "assets/lanches/novos/x-tudo-v2.png",
-      description: "PÃ£o de hambÃºrguer, hambÃºrguer, bacon, calabresa, ovo, presunto, queijo mussarela derretido, alface, tomate, milho, ervilha, batata palha e maionese.",
+      description: "Pão de hambúrguer, hambúrguer, bacon, calabresa, ovo, presunto, queijo mussarela derretido, alface, tomate, milho, ervilha, batata palha e maionese.",
       recipe: { pao: 1, carne170: 1, bacon: 1, calabresa: 1, ovo: 1, presunto: 1, queijo: 1, alface: 1, tomate: 1, milho: 1, ervilha: 1, batataPalha: 1, maionese: 1 },
     },
     "x-calota": {
       id: "x-calota",
       name: "X Pompero",
-      flavor: "Serve atÃ© 4 pessoas",
+      flavor: "Serve até 4 pessoas",
       price: 89.9,
       photo: "assets/lanches/novos/x-calota-v2.png",
-      description: "PÃ£o gigante de calota recheado com hambÃºrgueres, contrafilÃ©, frango, calabresa, bacon, ovos, presunto e queijo mussarela derretido. Finalizado com alface, tomate, milho, ervilha, batata palha e maionese. Servido no prato. Acompanha garfo e faca.",
+      description: "Pão gigante de calota recheado com hambúrgueres, contrafilé, frango, calabresa, bacon, ovos, presunto e queijo mussarela derretido. Finalizado com alface, tomate, milho, ervilha, batata palha e maionese. Servido no prato. Acompanha garfo e faca.",
       recipe: { pao: 4, carne170: 4, carne180: 2, calabresa: 3, bacon: 3, ovo: 4, presunto: 4, queijo: 6, alface: 4, tomate: 4, milho: 3, ervilha: 3, batataPalha: 4, maionese: 4 },
       active: true,
     },
@@ -302,7 +302,7 @@ const Pompero = (() => {
       flavor: "Hot dog",
       price: 20.9,
       photo: "assets/lanches/novos/hot-dog-v2.png",
-      description: "PÃ£o de dog, uma salsicha, vinagrete, milho, ervilha, batata palha, catchup, mostarda e maionese caseira.",
+      description: "Pão de dog, uma salsicha, vinagrete, milho, ervilha, batata palha, catchup, mostarda e maionese caseira.",
       recipe: { pao: 1, salsicha: 1, tomate: 1, cebola: 1, milho: 1, ervilha: 1, batataPalha: 1, maionese: 1 },
     },
     "hot-dog-especial": {
@@ -310,7 +310,7 @@ const Pompero = (() => {
       flavor: "Hot dog",
       price: 25.9,
       photo: "assets/lanches/novos/hot-dog-especial-v2.png",
-      description: "PÃ£o de dog, duas salsichas, purÃª de batata cremoso, bacon picado, queijo mussarela derretido, milho, ervilha, batata palha e maionese da casa.",
+      description: "Pão de dog, duas salsichas, purê de batata cremoso, bacon picado, queijo mussarela derretido, milho, ervilha, batata palha e maionese da casa.",
       recipe: { pao: 1, salsicha: 2, pure: 1, bacon: 1, queijo: 1, milho: 1, ervilha: 1, batataPalha: 1, maionese: 1 },
     },
     "porcao-chicken": {
@@ -479,7 +479,7 @@ const Pompero = (() => {
       flavor: "Sucos e Soda",
       price: 8,
       photo: "assets/produtos/suco-limao.png",
-      description: "Suco natural de limÃ£o no copo.",
+      description: "Suco natural de limão no copo.",
       recipe: {},
     },
     "suco-laranja": {
@@ -572,14 +572,14 @@ const Pompero = (() => {
   ]);
 
   function normalizeMenu(sourceMenu) {
-    const byId = new Map(sourceMenu.map((item) => [item.id, { flavor: "HambÃºrguer", active: true, ...item }]));
+    const byId = new Map(sourceMenu.map((item) => [item.id, { flavor: "Hambúrguer", active: true, ...item }]));
 
     byId.delete("x-pompero");
 
     Object.entries(productUpdates).forEach(([id, update]) => {
       const savedProduct = byId.get(id) || {};
       byId.set(id, {
-        flavor: "HambÃºrguer",
+        flavor: "Hambúrguer",
         active: true,
         ...savedProduct,
         id,
@@ -797,7 +797,7 @@ const Pompero = (() => {
     const orders = (customer?.orders || []).filter((order) => order.saleId !== excludeSaleId).slice(0, 3);
 
     if (!orders.length) {
-      return "Como Ã© seu primeiro pedido registrado aqui, jÃ¡ deixamos seu cadastro pronto para os prÃ³ximos benefÃ­cios.";
+      return "Como é seu primeiro pedido registrado aqui, já deixamos seu cadastro pronto para os próximos benefícios.";
     }
 
     return `Vi aqui seus pedidos anteriores: ${orders
@@ -808,11 +808,11 @@ const Pompero = (() => {
   function customerMessage(sale, customer) {
     const recurrenceLine =
       customer.orders.length > 1
-        ? `Como vocÃª jÃ¡ pediu com a gente antes, liberamos 5% de desconto na prÃ³xima compra com o cupom ${customer.coupon}.`
-        : `Na prÃ³xima compra, use o cupom ${customer.coupon} para ganhar 5% de desconto.`;
+        ? `Como você já pediu com a gente antes, liberamos 5% de desconto na próxima compra com o cupom ${customer.coupon}.`
+        : `Na próxima compra, use o cupom ${customer.coupon} para ganhar 5% de desconto.`;
 
     return [
-      `OlÃ¡${sale.customer ? `, ${sale.customer}` : ""}! Seu pedido na Pompero Burguer foi recebido com carinho.`,
+      `Olá${sale.customer ? `, ${sale.customer}` : ""}! Seu pedido na Pompero Burguer foi recebido com carinho.`,
       "",
       `Pedido de hoje: ${sale.items.map((item) => item.name).join(", ")}.`,
       previousOrders(customer, sale.id),
@@ -820,21 +820,21 @@ const Pompero = (() => {
       `Total: ${currency.format(sale.total)}.`,
       `Pagamento: ${sale.payment.method}.`,
       sale.address ? `Entrega: ${sale.address}.` : "Retirada/consumo na loja.",
-      sale.code ? `Acompanhe seu pedido pelo cÃ³digo ${sale.code}.` : "",
+      sale.code ? `Acompanhe seu pedido pelo código ${sale.code}.` : "",
       recurrenceLine,
       "",
-      "Muito obrigado pela preferÃªncia. A Pompero agradece e jÃ¡ estÃ¡ preparando tudo por aqui.",
+      "Muito obrigado pela preferência. A Pompero agradece e já está preparando tudo por aqui.",
     ].join("\n");
   }
 
   function postSaleMessage(customer) {
     return [
-      `OlÃ¡, ${customer.name}! Passando para agradecer seus pedidos na Pompero Burguer.`,
+      `Olá, ${customer.name}! Passando para agradecer seus pedidos na Pompero Burguer.`,
       "",
       previousOrders(customer),
-      `VocÃª tem 5% de desconto para a prÃ³xima compra com o cupom ${customer.coupon}.`,
+      `Você tem 5% de desconto para a próxima compra com o cupom ${customer.coupon}.`,
       "",
-      "Quando bater aquela vontade de burger, Ã© sÃ³ chamar a gente. Muito obrigado pela preferÃªncia!",
+      "Quando bater aquela vontade de burger, é só chamar a gente. Muito obrigado pela preferência!",
     ].join("\n");
   }
 

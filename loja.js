@@ -1,4 +1,4 @@
-﻿let storeCart = [];
+let storeCart = [];
 let lastStateText = "";
 let currentUser = null;
 
@@ -16,13 +16,13 @@ function canAdmin() {
 
 function requireAdmin() {
   if (canAdmin()) return true;
-  alert("Seu usuÃ¡rio nÃ£o tem permissÃ£o para alterar esta Ã¡rea.");
+  alert("Seu usuário não tem permissão para alterar esta área.");
   return false;
 }
 
 function switchTab(tab) {
   if (adminTabs.includes(tab) && !canAdmin()) {
-    alert("Este mÃ³dulo Ã© liberado somente para o editor/admin.");
+    alert("Este módulo é liberado somente para o editor/admin.");
     tab = "caixa";
   }
 
@@ -42,7 +42,7 @@ function applyPermissions() {
     element.hidden = !canAdmin();
   });
   qs("#session-user").textContent = currentUser
-    ? `${currentUser.name} â€¢ ${canAdmin() ? "Editor/admin" : "Colaborador"}`
+    ? `${currentUser.name} • ${canAdmin() ? "Editor/admin" : "Colaborador"}`
     : "";
 
   const activePanel = document.querySelector(".tab-panel.active")?.id;
@@ -121,10 +121,10 @@ function renderMenu() {
           <div class="menu-body">
             <h3>${item.name}</h3>
             <span class="price">${Pompero.currency.format(item.price)}</span>
-            <small class="badge">${item.flavor || "HambÃºrguer"}</small>
+            <small class="badge">${item.flavor || "Hambúrguer"}</small>
             <p>${item.description}</p>
             <label>
-              ObservaÃ§Ã£o
+              Observação
               <textarea rows="1" data-store-note="${item.id}" placeholder="Ex: sem tomate"></textarea>
             </label>
             <button class="primary-button" type="button" data-store-add="${item.id}">Adicionar no caixa</button>
@@ -203,7 +203,7 @@ function saveProduct(event) {
   const price = Number(qs("#product-price").value);
 
   if (!name || !price) {
-    alert("Preencha nome e preÃ§o do produto.");
+    alert("Preencha nome e preço do produto.");
     return;
   }
 
@@ -214,7 +214,7 @@ function saveProduct(event) {
   const product = {
     id,
     name,
-    flavor: qs("#product-flavor").value.trim() || "HambÃºrguer",
+    flavor: qs("#product-flavor").value.trim() || "Hambúrguer",
     price,
     photo: qs("#product-photo").value,
     description: qs("#product-description").value.trim(),
@@ -251,7 +251,7 @@ function saveProductPrice(productId) {
   const price = Number(input?.value);
 
   if (!price || price <= 0) {
-    alert("Informe um preÃ§o vÃ¡lido para o lanche.");
+    alert("Informe um preço válido para o lanche.");
     return;
   }
 
@@ -274,19 +274,19 @@ function renderProducts(state) {
             <img class="product-thumb" src="${product.photo}" alt="${product.name}" />
             <div>
               <strong>${product.name}</strong>
-              <small>${product.flavor || "HambÃºrguer"} â€¢ ${product.active === false ? "Inativo" : "Ativo no cliente"}</small>
+              <small>${product.flavor || "Hambúrguer"} • ${product.active === false ? "Inativo" : "Ativo no cliente"}</small>
               <small>${product.description}</small>
             </div>
           </div>
           <div class="table-actions price-actions">
             <label class="inline-price">
-              <span>PreÃ§o</span>
+              <span>Preço</span>
               <input data-product-price="${product.id}" type="number" min="0" step="0.01" value="${product.price}" />
             </label>
             <button class="small-button" type="button" data-edit-product="${product.id}">Editar</button>
-            <button class="small-button" type="button" data-save-price="${product.id}">Salvar preÃ§o</button>
+            <button class="small-button" type="button" data-save-price="${product.id}">Salvar preço</button>
             <button class="small-button" type="button" data-toggle-product="${product.id}">
-              ${product.active === false ? "Voltar ao cardÃ¡pio" : "Retirar do cardÃ¡pio"}
+              ${product.active === false ? "Voltar ao cardápio" : "Retirar do cardápio"}
             </button>
           </div>
         </div>
@@ -313,7 +313,7 @@ function renderStoreCart() {
         <div class="cart-row">
           <div class="cart-main">
             <strong>${item.name}</strong>
-            <small>${item.note ? `Obs: ${item.note}` : "Sem observaÃ§Ã£o"}</small>
+            <small>${item.note ? `Obs: ${item.note}` : "Sem observação"}</small>
           </div>
           <div class="cart-actions">
             <span class="price">${Pompero.currency.format(item.price)}</span>
@@ -337,10 +337,10 @@ function renderStoreCart() {
 function buildTicket(order) {
   qs("#ticket").innerHTML = `
     <h1>Pompero Burguer</h1>
-    <div class="meta">Comanda â€¢ ${new Date().toLocaleString("pt-BR")}</div>
+    <div class="meta">Comanda • ${new Date().toLocaleString("pt-BR")}</div>
     <div class="block">
       ${order.code ? `<strong>${order.code}</strong>` : ""}
-      <strong>${order.customer || "Cliente balcÃ£o"}</strong>
+      <strong>${order.customer || "Cliente balcão"}</strong>
       <span>${order.source}</span>
       ${order.address ? `<small>Entrega: ${order.address}</small>` : ""}
     </div>
@@ -399,8 +399,8 @@ function isDeliveryOrder(sale) {
 
 function orderFlow(sale) {
   return isDeliveryOrder(sale)
-    ? ["Pedido aceito", "Em preparaÃ§Ã£o", "Saiu para entrega", "Pedido finalizado"]
-    : ["Pedido aceito", "Em preparaÃ§Ã£o", "Pedido pronto", "Pedido finalizado"];
+    ? ["Pedido aceito", "Em preparação", "Saiu para entrega", "Pedido finalizado"]
+    : ["Pedido aceito", "Em preparação", "Pedido pronto", "Pedido finalizado"];
 }
 
 function advanceStatus(saleId) {
@@ -425,7 +425,7 @@ function finishStoreSale() {
   const total = Pompero.subtotal(storeCart);
   const sale = {
     id: Pompero.uid(),
-    source: "BalcÃ£o",
+    source: "Balcão",
     status: "Pedido aceito",
     createdAt: new Date().toISOString(),
     customer: qs("#store-name").value.trim(),
@@ -475,7 +475,7 @@ function renderPending(state) {
         <div class="table-row paid-order">
           <div class="table-main">
             <strong>${order.customer} - ${Pompero.currency.format(order.total)}</strong>
-            <small>${new Date(order.createdAt).toLocaleString("pt-BR")} â€¢ ${order.payment.method} â€¢ ${order.address}</small>
+            <small>${new Date(order.createdAt).toLocaleString("pt-BR")} • ${order.payment.method} • ${order.address}</small>
             <small>${order.items.map((item) => item.name).join(", ")}</small>
           </div>
           <div class="table-actions">
@@ -504,8 +504,8 @@ function renderProcessCard(sale) {
 
   return `
     <article class="process-card">
-      <strong>${sale.code ? `${sale.code} â€¢ ` : ""}${sale.customer || "Cliente"}</strong>
-      <small>${sale.source || "Pedido"} â€¢ ${Pompero.currency.format(sale.total)}</small>
+      <strong>${sale.code ? `${sale.code} • ` : ""}${sale.customer || "Cliente"}</strong>
+      <small>${sale.source || "Pedido"} • ${Pompero.currency.format(sale.total)}</small>
       <small>${sale.items.map((item) => item.name).join(", ")}</small>
       <span class="badge">${sale.status}</span>
       ${canAdvance ? `<button class="small-button" type="button" data-process-next="${sale.id}">Mover para: ${nextLabel}</button>` : ""}
@@ -516,7 +516,7 @@ function renderProcessCard(sale) {
 function renderProcessBoard(state) {
   const columns = [
     { title: "Pedido aceito", matches: (sale) => sale.status === "Pedido aceito" },
-    { title: "Em preparaÃ§Ã£o", matches: (sale) => sale.status === "Em preparaÃ§Ã£o" },
+    { title: "Em preparação", matches: (sale) => sale.status === "Em preparação" },
     { title: "Pronto / saiu para entrega", matches: (sale) => sale.status === "Pedido pronto" || sale.status === "Saiu para entrega" },
     { title: "Finalizados", matches: (sale) => sale.status === "Pedido finalizado" },
   ];
@@ -552,7 +552,7 @@ function renderStock(state) {
         <div class="table-row">
           <div class="table-main">
             <strong>${item.name}</strong>
-            <small>MÃ­nimo: ${formatKg(item.min)} kg</small>
+            <small>Mínimo: ${formatKg(item.min)} kg</small>
           </div>
           <div class="table-actions stock-actions">
             <label class="inline-price">
@@ -560,7 +560,7 @@ function renderStock(state) {
               <input data-stock-qty="${id}" type="number" min="0" step="0.001" value="${item.qty}" />
             </label>
             <label class="inline-price">
-              <span>MÃ­n. kg</span>
+              <span>Mín. kg</span>
               <input data-stock-min="${id}" type="number" min="0" step="0.001" value="${item.min}" />
             </label>
             <span class="${low ? "stock-low" : "stock-ok"}">${formatKg(item.qty)} kg</span>
@@ -587,7 +587,7 @@ function saveStockItem(id) {
   const min = Number(document.querySelector(`[data-stock-min="${id}"]`)?.value);
 
   if (Number.isNaN(qty) || Number.isNaN(min) || qty < 0 || min < 0) {
-    alert("Informe valores vÃ¡lidos em kg.");
+    alert("Informe valores válidos em kg.");
     return;
   }
 
@@ -608,12 +608,12 @@ function renderPayments(state) {
           (sale) => `
             <div class="table-row">
               <div class="table-main">
-                <strong>${sale.code ? `${sale.code} â€¢ ` : ""}${sale.customer || "Cliente balcÃ£o"} - ${Pompero.currency.format(sale.total)}</strong>
-                <small>${new Date(sale.createdAt).toLocaleString("pt-BR")} â€¢ ${sale.source} â€¢ ${sale.payment.method}</small>
+                <strong>${sale.code ? `${sale.code} • ` : ""}${sale.customer || "Cliente balcão"} - ${Pompero.currency.format(sale.total)}</strong>
+                <small>${new Date(sale.createdAt).toLocaleString("pt-BR")} • ${sale.source} • ${sale.payment.method}</small>
               </div>
               <div class="table-actions">
                 <span class="badge">${sale.status}</span>
-                ${sale.status !== "Pedido finalizado" ? `<button class="small-button" type="button" data-next-status="${sale.id}">AvanÃ§ar etapa</button>` : ""}
+                ${sale.status !== "Pedido finalizado" ? `<button class="small-button" type="button" data-next-status="${sale.id}">Avançar etapa</button>` : ""}
               </div>
             </div>
           `,
@@ -686,9 +686,9 @@ async function syncMercadoPagoCredentialsFromLocal() {
 }
 
 function maskSecret(value) {
-  if (!value) return "NÃ£o informado";
-  if (value.length <= 12) return "â€¢â€¢â€¢â€¢â€¢â€¢";
-  return `${value.slice(0, 6)}â€¢â€¢â€¢â€¢â€¢â€¢${value.slice(-4)}`;
+  if (!value) return "Não informado";
+  if (value.length <= 12) return "••••••";
+  return `${value.slice(0, 6)}••••••${value.slice(-4)}`;
 }
 
 function renderMercadoPagoCredentials() {
@@ -704,7 +704,7 @@ function renderMercadoPagoCredentials() {
     <div class="table-row">
       <div class="table-main">
         <strong>Public Key</strong>
-        <small>${credentials.publicKey || "NÃ£o informada"}</small>
+        <small>${credentials.publicKey || "Não informada"}</small>
       </div>
       <div class="table-actions">
         ${credentials.publicKey ? `<button class="small-button" type="button" data-copy-mp="publicKey">Copiar</button>` : ""}
@@ -876,7 +876,7 @@ function renderKitchen(state) {
               .join("")}
           </ul>
           ${sale.address ? `<p class="empty-state">${sale.address}</p>` : ""}
-          <button class="primary-button" type="button" data-next-status="${sale.id}">AvanÃ§ar status</button>
+          <button class="primary-button" type="button" data-next-status="${sale.id}">Avançar status</button>
         </article>
       `,
     )
@@ -895,19 +895,19 @@ function renderCrm(state) {
           (customer) => `
             <div class="table-row">
               <div class="table-main">
-                <strong>${customer.name} â€¢ ${customer.orders.length} pedido(s)</strong>
-                <small>${customer.phone || "Sem WhatsApp"} â€¢ Total: ${Pompero.currency.format(customer.totalSpent)}</small>
-                <small>Ãšltimos: ${customer.orders.slice(0, 3).map((order) => order.items.slice(0, 2).join(" + ")).join("; ")}</small>
-                <small>Cupom: <span class="coupon-code">${customer.coupon}</span> â€¢ 5% prÃ³xima compra</small>
+                <strong>${customer.name} • ${customer.orders.length} pedido(s)</strong>
+                <small>${customer.phone || "Sem WhatsApp"} • Total: ${Pompero.currency.format(customer.totalSpent)}</small>
+                <small>Últimos: ${customer.orders.slice(0, 3).map((order) => order.items.slice(0, 2).join(" + ")).join("; ")}</small>
+                <small>Cupom: <span class="coupon-code">${customer.coupon}</span> • 5% próxima compra</small>
               </div>
               <div class="table-actions">
-                <a class="small-button" href="${Pompero.whatsappUrl(customer.phone, Pompero.postSaleMessage(customer))}" target="_blank" rel="noreferrer">PÃ³s-venda</a>
+                <a class="small-button" href="${Pompero.whatsappUrl(customer.phone, Pompero.postSaleMessage(customer))}" target="_blank" rel="noreferrer">Pós-venda</a>
               </div>
             </div>
           `,
         )
         .join("")
-    : `<div class="empty-state">Clientes aparecem aqui apÃ³s vendas.</div>`;
+    : `<div class="empty-state">Clientes aparecem aqui após vendas.</div>`;
 }
 
 function renderNfce(state) {
@@ -918,8 +918,8 @@ function renderNfce(state) {
           return `
             <div class="table-row">
               <div class="table-main">
-                <strong>${sale?.customer || "Cliente balcÃ£o"} - ${Pompero.currency.format(sale?.total || 0)}</strong>
-                <small>${new Date(doc.createdAt).toLocaleString("pt-BR")} â€¢ Venda ${doc.saleId}</small>
+                <strong>${sale?.customer || "Cliente balcão"} - ${Pompero.currency.format(sale?.total || 0)}</strong>
+                <small>${new Date(doc.createdAt).toLocaleString("pt-BR")} • Venda ${doc.saleId}</small>
               </div>
               <span class="badge">${doc.status}</span>
             </div>
@@ -949,7 +949,7 @@ function renderWhatsapp(state) {
           `,
         )
         .join("")
-    : `<div class="empty-state">Mensagens aparecem apÃ³s aceitar/finalizar vendas.</div>`;
+    : `<div class="empty-state">Mensagens aparecem após aceitar/finalizar vendas.</div>`;
 }
 
 function saveContactSettings(event) {
@@ -999,7 +999,7 @@ function saveUser(event) {
   const password = qs("#user-password").value.trim();
 
   if (!name || !username || !password) {
-    alert("Preencha nome, usuÃ¡rio e senha.");
+    alert("Preencha nome, usuário e senha.");
     return;
   }
 
@@ -1007,7 +1007,7 @@ function saveUser(event) {
   const currentId = qs("#user-id").value;
   const duplicated = state.users.some((user) => user.username === username && user.id !== currentId);
   if (duplicated) {
-    alert("JÃ¡ existe um usuÃ¡rio com este login.");
+    alert("Já existe um usuário com este login.");
     return;
   }
 
@@ -1042,8 +1042,8 @@ function renderUsers(state) {
         <div class="table-row">
           <div class="table-main">
             <strong>${user.name}</strong>
-            <small>${user.username} â€¢ ${user.role === "admin" ? "Editor/admin" : "Colaborador"} â€¢ ${user.active === false ? "Inativo" : "Ativo"}</small>
-            <small>${user.role === "admin" ? "Acesso total." : "Sem acesso a cardÃ¡pio, formas de pagamento, fiscal, equipe e estoque."}</small>
+            <small>${user.username} • ${user.role === "admin" ? "Editor/admin" : "Colaborador"} • ${user.active === false ? "Inativo" : "Ativo"}</small>
+            <small>${user.role === "admin" ? "Acesso total." : "Sem acesso a cardápio, formas de pagamento, fiscal, equipe e estoque."}</small>
           </div>
           <div class="table-actions">
             <button class="small-button" type="button" data-edit-user="${user.id}">Editar</button>
@@ -1117,7 +1117,7 @@ qs("#store-clear").addEventListener("click", () => {
 qs("#print-ticket").addEventListener("click", () => {
   if (!storeCart.length) return alert("Adicione itens antes de imprimir.");
   buildTicket({
-    source: "BalcÃ£o",
+    source: "Balcão",
     customer: qs("#store-name").value.trim(),
     address: "",
     items: storeCart,
@@ -1158,7 +1158,7 @@ qs("#copy-crm-message").addEventListener("click", async () => {
   const customer = Object.values(Pompero.load().customers)[0];
   if (!customer) return alert("Nenhum cliente ainda.");
   await navigator.clipboard.writeText(Pompero.postSaleMessage(customer));
-  alert("Mensagem de pÃ³s-venda copiada.");
+  alert("Mensagem de pós-venda copiada.");
 });
 
 setInterval(async () => {
